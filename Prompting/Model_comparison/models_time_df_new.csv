@@ -1,0 +1,5 @@
+Model_name,Model_load_time (sec),Avg_inference_time (sec),Total_inference_time (sec)
+microsoft/Phi-3-mini-128k-instruct,24.499,40.479,1214.368
+unsloth/Llama-3.2-3B-Instruct-bnb-4bit,4.443,38.62,1158.601
+Qwen/Qwen2.5-3B-Instruct,22.974,47.999,1439.979
+Qwen/Qwen2.5-7B-Instruct,55.595,58.044,1741.324
