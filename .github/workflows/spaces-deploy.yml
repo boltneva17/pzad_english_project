@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: huggingface/hub-sync@v0.1.0
-        with:
-          github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: salarion-witch/pzad_ielts
-          hf_token: ${{ secrets.HF_TOKEN }}
-          repo_type: space
-          space_sdk: streamlit
-          subdirectory: space
+      - name: Upload to Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          pip install -U "huggingface_hub[cli]"
+          hf upload salarion-witch/ielts-checker space/ \
+            --repo-type space \
+            --commit-message "Deploy from GitHub"
