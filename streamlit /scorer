@@ -1,0 +1,122 @@
+import streamlit as st
+from huggingface_hub import InferenceClient
+import json
+import re
+
+
+# === Промпт (возьмите тот, который использовала ML-команда при обучении/тесте) ===
+PROMPT_TEMPLATE = """You are an experienced IELTS examiner. Evaluate the following essay by 4 official IELTS Writing Task 2 criteria:
+- TR (Task Response)
+- CC (Coherence and Cohesion)
+- LR (Lexical Resource)
+- GRA (Grammatical Range and Accuracy)
+
+Each criterion is scored from 0 to 9.
+
+Task:
+{task}
+
+Essay:
+{essay}
+
+Return ONLY valid JSON in this exact format, no other text:
+{{
+  "TR": {{"score": <int 0-9>, "comment": "<brief explanation>"}},
+  "CC": {{"score": <int 0-9>, "comment": "<brief explanation>"}},
+  "LR": {{"score": <int 0-9>, "comment": "<brief explanation>"}},
+  "GRA": {{"score": <int 0-9>, "comment": "<brief explanation>"}},
+  "overall_feedback": "<a paragraph with main advice for improvement>"
+}}
+"""
+
+
+# === Клиент HF (создаётся один раз благодаря кешу) ===
+@st.cache_resource
+def get_client():
+    return InferenceClient(
+        model="ВАШ_USERNAME/ИМЯ_МОДЕЛИ",          # ← замените на ваш репо
+        token=st.secrets["HF_TOKEN"],
+    )
+
+
+def _parse_response(raw_text: str) -> dict:
+    """Извлекает JSON из ответа модели."""
+    # ищем первый {...} блок
+    match = re.search(r"\{.*\}", raw_text, re.DOTALL)
+    if not match:
+        raise ValueError(f"JSON не найден в ответе модели: {raw_text[:200]}")
+    return json.loads(match.group())
+
+
+def score_essay(task: str, essay: str) -> dict:
+    """
+    Оценивает эссе через HF Inference API.
+
+    Returns:
+        {
+            "status": "ok" | "error",
+            "scores": {...} | None,
+            "overall_feedback": str | None,
+            "error": str | None
+        }
+    """
+    # === валидация входа ===
+    if not task.strip() or not essay.strip():
+        return {
+            "status": "error",
+            "scores": None,
+            "overall_feedback": None,
+            "error": "Task и Essay не должны быть пустыми.",
+        }
+
+    try:
+        client = get_client()
+        prompt = PROMPT_TEMPLATE.format(task=task, essay=essay)
+
+        # === вызов модели ===
+        raw = client.text_generation(
+            prompt,
+            max_new_tokens=600,
+            temperature=0.3,
+            return_full_text=False,
+        )
+
+        # === парсинг ===
+        parsed = _parse_response(raw)
+
+        # === расчёт total ===
+        total = round(
+            (parsed["TR"]["score"]
+             + parsed["CC"]["score"]
+             + parsed["LR"]["score"]
+             + parsed["GRA"]["score"]) / 4,
+            1,
+        )
+
+        return {
+            "status": "ok",
+            "scores": {
+                "TR":  parsed["TR"],
+                "CC":  parsed["CC"],
+                "LR":  parsed["LR"],
+                "GRA": parsed["GRA"],
+                "total": total,
+            },
+            "overall_feedback": parsed["overall_feedback"],
+            "error": None,
+        }
+
+    except json.JSONDecodeError as e:
+        return {
+            "status": "error",
+            "scores": None,
+            "overall_feedback": None,
+            "error": f"Не удалось распарсить ответ модели: {str(e)}",
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "scores": None,
+            "overall_feedback": None,
+            "error": f"Ошибка инференса: {str(e)}",
+        }
