@@ -15,6 +15,6 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           pip install -U "huggingface_hub[cli]"
-          hf upload salarion-witch/ielts-checker space/ \
+          hf upload salarion-witch/ielts_essays space/ \
             --repo-type space \
             --commit-message "Deploy from GitHub"
