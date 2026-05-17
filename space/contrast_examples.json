@@ -1,0 +1,30 @@
+[
+  {
+    "label": "weak",
+    "task": "It is the responsibility of schools to teach children how to behave well. Some people think parents should do this. To what extent do you agree or disagree?",
+    "essay": "The line graph illustrates the Outokumpu share price from January 2006 to December 2010. Overall, the price increased gradually with fluctuations. In 2006 it started at a low level, then rose sharply in 2007 before declining again in 2008.",
+    "TR_Band": 1.0,
+    "CC_Band": 5.0,
+    "LR_Band": 5.0,
+    "GRA_Band": 4.0,
+    "Overall_Band": 4.0,
+    "TR_Comment": "Completely off-topic; does not address the writing task.",
+    "CC_Comment": "Some organization, but not appropriate for Task 2.",
+    "LR_Comment": "Limited vocabulary tied to graphs, not argumentation.",
+    "GRA_Comment": "Limited range of structures with noticeable errors."
+  },
+  {
+    "label": "strong",
+    "task": "The increase in the production of consumer goods results in damage to the natural environment. What are the causes of this? What can be done to solve this problem?",
+    "essay": "These days, there is an ever-growing number of consumer goods, and this trend damages the environment. The main causes are mass production and waste. Governments should impose stricter regulations, while consumers should adopt sustainable habits.",
+    "TR_Band": 9.0,
+    "CC_Band": 9.0,
+    "LR_Band": 9.0,
+    "GRA_Band": 9.0,
+    "Overall_Band": 9.0,
+    "TR_Comment": "Fully addresses causes and solutions with clear position.",
+    "CC_Comment": "Well-organized paragraphs with effective linking.",
+    "LR_Comment": "Wide, precise vocabulary with natural collocations.",
+    "GRA_Comment": "Wide range of accurate complex structures."
+  }
+]
