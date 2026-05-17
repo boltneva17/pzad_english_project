@@ -7,13 +7,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Push to Hugging Face Space
-        uses: huggingface/huggingface-space-action@v1.0.3
+      - uses: huggingface/hub-sync@v0.1.0
         with:
-          repo_id: salarion-witch/pzad_ielts
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          huggingface_repo_id: salarion-witch/pzad_ielts
+          hf_token: ${{ secrets.HF_TOKEN }}
+          repo_type: space
+          space_sdk: streamlit
+          subdirectory: space
