@@ -6,11 +6,16 @@ from io import BytesIO
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import letter
+# расскоментить когда 
+# @st.cache_resource
+# def get_scorer():
+#     from scorer import score_essay
+#     return score_essay
 
 # ---------- Настройка страницы ----------
 st.set_page_config(
-    page_title="Essay Checker",
-    page_icon="📝",
+    page_title="write&check",
+    page_icon="🎓",
     layout="wide"
 )
 
@@ -251,7 +256,7 @@ with st.sidebar:
             st.rerun()
 
 # ---------- Заголовок ----------
-st.title("📝 IELTS Essay Checker")
+st.title("🎓 Проверь свое IELTS эссе")
 st.caption("Автоматическая проверка эссе по 4 критериям IELTS Writing Task 2")
 
 # ---------- Значения формы ----------
