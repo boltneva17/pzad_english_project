@@ -4,9 +4,6 @@ on:
   push:
     branches: [main]
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,6 +12,7 @@ jobs:
 
       - uses: huggingface/hub-sync@v0.1.0
         with:
+          github_repo_id: ${{ github.repository }}
           huggingface_repo_id: salarion-witch/pzad_ielts
           hf_token: ${{ secrets.HF_TOKEN }}
           repo_type: space
