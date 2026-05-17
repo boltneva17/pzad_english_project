@@ -1,15 +1,19 @@
-name: Sync to Hugging Face Hub
+name: Deploy to Hugging Face Space
+
 on:
   push:
     branches: [main]
 
 jobs:
-  sync:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v6
-      - uses: huggingface/hub-sync@v0.1.0
+      - uses: actions/checkout@v4
+
+      - name: Push to Hugging Face Space
+        uses: huggingface/huggingface-space-action@v1.0.3
         with:
-          github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: salarion-witch/ielts-checker
-          hf_token: ${{ secrets.HF_TOKEN }}
+          repo_id: salarion-witch/ielts-checker
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
