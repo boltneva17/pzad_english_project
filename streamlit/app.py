@@ -6,11 +6,10 @@ from io import BytesIO
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import letter
-# расскоментить когда 
+# расскоментить когда будет загрузка 
 # @st.cache_resource
 # def get_scorer():
-#     from scorer import score_essay
-#     return score_essay
+#     return load_model()
 
 # ---------- Настройка страницы ----------
 st.set_page_config(
