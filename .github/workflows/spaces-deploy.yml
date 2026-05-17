@@ -14,6 +14,6 @@ jobs:
       - name: Push to Hugging Face Space
         uses: huggingface/huggingface-space-action@v1.0.3
         with:
-          repo_id: salarion-witch/ielts-checker
+          repo_id: salarion-witch/qwen-ielts-lora
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
