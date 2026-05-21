@@ -131,6 +131,7 @@ Fine-tuning хуже baseline по всем метрикам кроме QWK. О�
 Ссылка на ноутбук - https://colab.research.google.com/drive/1QtBCB7_1vshlXaWdnhp4wXrrIIxIxlEZ?usp=sharing
 
 Итого результаты
+
 <img width="482" height="140" alt="image" src="https://github.com/user-attachments/assets/822c736d-7549-4f38-b1cb-b36c93396fcf" />
 
 
