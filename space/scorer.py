@@ -8,8 +8,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from prompting import build_contrast_prompt, load_contrast_examples
 
-BASE_MODEL = "Qwen/Qwen2.5-3B-Instruct"
-LORA_ADAPTER = "salarion-witch/qwen-ielts-lora"
+BASE_MODEL = "unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
+LORA_ADAPTER = "salarion-witch/llama-ielts-lora"
 MAX_NEW_TOKENS = 400
 
 
